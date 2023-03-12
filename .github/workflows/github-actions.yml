@@ -17,6 +17,6 @@ jobs:
           ls ${{ github.workspace }}
       - name: Run generate-authors script
         run: |
-          ls -al
-          chmod +x generate-author.sh && generate-author.sh
+          pwd
+          chmod +x ./generate-author.sh && ./generate-author.sh
       - run: echo "🍏 This job's status is ${{ job.status }}."
