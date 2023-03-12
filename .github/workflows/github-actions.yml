@@ -2,7 +2,7 @@ name: Generate authors on Push to main
 run-name: ${{ github.actor }} generates the contributors on push
 on: [push]
 jobs:
-  Generate:
+  Generate-AUTHORS:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -17,5 +17,6 @@ jobs:
           ls ${{ github.workspace }}
       - name: Run generate-authors script
         run: |
-          chmod +x ./generate-author.sh && ./generate-author.sh
+          ls -al
+          chmod +x generate-author.sh && generate-author.sh
       - run: echo "🍏 This job's status is ${{ job.status }}."
