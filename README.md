@@ -7,7 +7,8 @@
 - [0x03 Installation](#0x03-Installation)
 - [0x04 Testing](#0x04-Testing)
 - [0x05 Usage](#0x05-Usage)
-- [0x07 Resources](#-Resources)
+- [0x07 Resources](#0x07-Resources)
+
 ## 0x01 Introduction
 Team project to build a clone of [AirBnB](https://www.airbnb.com/).
 The goal of the project is to deploy on your server a simple copy of the [AirBnB website](https://intranet.alxswe.com/rltoken/m8g02HcD2ovrl_K-zulYBw).
