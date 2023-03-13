@@ -119,8 +119,9 @@ $
 
 ### Commands
 
-**The commands are displayed in the following format *Command / usage / example with output**
+**All commands use the following format: `COMMAND / usage / example with output`**
 * Create
+--
 
 Creates a new instance of a given class. The class' ID is printed and the instance is saved to the file file.json.
 
@@ -135,6 +136,7 @@ Example:
 ```
 
 * Show
+--
 Show stored class information
 ```bash
 show <class> <id>
@@ -147,6 +149,7 @@ Example:
 ```
 
 * Destroy
+--
 Deletes an instance of a given class with a given ID.
 ```bash
 destroy <class> <id>
@@ -163,6 +166,7 @@ Example:
 ```
 
 * all
+--
 Print all string representation of all instances of a given class.
 ```bash
 all [<class>]
@@ -178,6 +182,7 @@ e45ddda9-eb80-4858-99a9-226d4f08a629
 ```
 
 * count
+--
 Prints the number of instances of a given class.
 ```bash
 count <class>
@@ -193,7 +198,8 @@ e952b772-80a5-41e9-b728-6bc4dc5c21b4
 (hbnb)
 ```
 
-* update
+* Update
+--
 Updates an instance based on the class name, id, and kwargs passed.
 > Update the file.json
 ```bash
