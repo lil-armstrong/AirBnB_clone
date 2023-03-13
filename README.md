@@ -118,44 +118,46 @@ $
 ```
 
 ### Commands
-
-**All commands use the following format: `COMMAND / usage / example with output`**
-* Create
---
+* Create: 
 
 Creates a new instance of a given class. The class' ID is printed and the instance is saved to the file file.json.
 
+**Usage:**
 ```bash
 create <class>
 ```
-Example:
+**Example:**
 ```bash
 (hbnb) create BaseModel
 6cfb47c4-a434-4da7-ac03-2122624c3762
 (hbnb)
 ```
 
-* Show
---
+* Show: 
+
 Show stored class information
+
+**Usage:**
 ```bash
 show <class> <id>
 ```
-Example:
+**Example:**
 ```bash
 (hbnb) show BaseModel 6cfb47c4-a434-4da7-ac03-2122624c3762
 [BaseModel] (a) [BaseModel] (6cfb47c4-a434-4da7-ac03-2122624c3762) {'id': '6cfb47c4-a434-4da7-ac03-2122624c3762', 'created_at': datetime.datetime(2021, 11, 14, 3, 28, 45, 571360), 'updated_at': datetime.datetime(2021, 11, 14, 3, 28, 45, 571389)}
 (hbnb)
 ```
 
-* Destroy
---
+* Destroy:
+
 Deletes an instance of a given class with a given ID.
+
+**Usage:**
 ```bash
 destroy <class> <id>
 ```
 > This action updates the file.json
-Example:
+**Example:**
 ```bash
 (hbnb) create User
 0c98d2b8-7ffa-42b7-8009-d9d54b69a472
@@ -165,14 +167,15 @@ Example:
 (hbnb)
 ```
 
-* all
---
+* all:
+
 Print all string representation of all instances of a given class.
+**Usage:**
 ```bash
 all [<class>]
 ```
 > If no class is passed, all classes are printed.
-Example:
+**Example:**
 ```bash
 (hbnb) create BaseModel
 e45ddda9-eb80-4858-99a9-226d4f08a629
@@ -182,12 +185,13 @@ e45ddda9-eb80-4858-99a9-226d4f08a629
 ```
 
 * count
---
+
 Prints the number of instances of a given class.
+**Usage:**
 ```bash
 count <class>
 ```
-Example:
+**Example:**
 ```bash
 (hbnb) create City
 4e01c33e-2564-42c2-b61c-17e512898bad
@@ -199,13 +203,14 @@ e952b772-80a5-41e9-b728-6bc4dc5c21b4
 ```
 
 * Update
---
+
 Updates an instance based on the class name, id, and kwargs passed.
 > Update the file.json
+**Usage:**
 ```bash
 
 ```
-Example:
+**Example:**
 ```bash
 
 ```
