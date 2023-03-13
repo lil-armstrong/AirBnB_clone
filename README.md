@@ -7,7 +7,7 @@
 - [0x03 Installation](#0x03-Installation)
 - [0x04 Testing](#0x04-Testing)
 - [0x05 Usage](#0x05-Usage)
-- [0x07 Resources](#0x07-Resources)
+- [0x06 Resources](#0x06-Resources)
 
 ## 0x01 Introduction
 Team project to build a clone of [AirBnB](https://www.airbnb.com/).
@@ -42,7 +42,7 @@ Storage of objects are handled by the `Storage` engine in the `FileStorage` Clas
   * [pycodestyle (version 2.7.*)](https://pypi.org/project/pycodestyle/)
   * [PEP8](https://pep8.org/)
 
-## 0x07 Resources
+## 0x06 Resources
 
 -   Use [`hack/generate-authors.sh`](https://github.com/moby/moby/blob/master/hack/generate-authors.sh) to generate authors
 -   [cmd module](https://intranet.alxswe.com/rltoken/8ecCwE6veBmm3Nppw4hz5A)
