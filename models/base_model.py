@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import models 
+import models
 from uuid import uuid4
 from datetime import datetime
 
@@ -39,8 +39,18 @@ class BaseModel:
 
     def to_dict(self):
         """Return a dictionary representation of the instance"""
-        dict_obj = self.__dict__
+        dict_obj = (self.__dict__).copy()
         dict_obj["__class__"] = self.__class__.__name__
-        dict_obj["created_at"] = self.created_at.isoformat()
-        dict_obj["updated_at"] = self.updated_at.isoformat()
+        dict_obj["created_at"] = dict_obj["created_at"].isoformat()
+        dict_obj["updated_at"] = dict_obj["updated_at"].isoformat()
         return dict_obj
+
+    def update(self, name="", value=""):
+        """Updates the instance attribute"""
+        try:
+            if name in ["updated_at", "created_at"]:
+                value = datetime.fromisoformat(value)
+            self.__setattr__(name, value)
+        except Exception as e:
+            print(e)
+            pass

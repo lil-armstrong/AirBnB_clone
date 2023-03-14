@@ -86,7 +86,8 @@ class HBNBCommand (Cmd):
         return None
 
     def do_quit(self, line):
-        """Quit command to exit the program."""
+        """\x1b[32m\x1b[1mquit\x1b[0m
+Quit command to exit the program.\n"""
         return True
 
     def do_EOF(self, line):
