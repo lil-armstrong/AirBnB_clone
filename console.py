@@ -24,7 +24,12 @@ class HBNBCommand (Cmd):
     """
     __classes = {
         "BaseModel",
-        "User"
+        "User",
+        "City",
+        "Amenity",
+        "State",
+        "Review",
+        "Place",
     }
 
     def __init__(self, prompt="(hbnb) "):
@@ -86,13 +91,11 @@ class HBNBCommand (Cmd):
         return None
 
     def do_quit(self, line):
-        """\x1b[32m\x1b[1mquit\x1b[0m
-Quit command to exit the program.\n"""
+        """Quit command to exit the program.\n"""
         return True
 
     def do_EOF(self, line):
-        """\x1b[32m\x1b[1mEOF\x1b[0m
-EOF signal to exit the program.\n"""
+        """EOF signal to exit the program.\n"""
         return 'quit'
 
     def emptyline(self):
@@ -125,9 +128,8 @@ The question mark "\x1b[34m\x1b[1m?\x1b[0m" can be used as an alias for
             Cmd.do_help(self, cmd)
 
     def do_create(self, line=""):
-        """\x1b[32m\x1b[1mcreate\x1b[0m [\x1b[34m\x1b[1mmodel\x1b[0m...]
-Creates a new instance of a model,
-saves it and prints the id\n"""
+        """Usage: create <class>
+Create a new class instance and print its id.\n"""
         (cmd, args, ln) = Cmd.parseline(self, line)
 
         if cmd is None:
@@ -144,10 +146,10 @@ saves it and prints the id\n"""
         self.stdout.write("{}\n".format(new.id))
 
     def do_show(self, line):
-        """\x1b[32m\x1b[1mshow\x1b[0m \x1b[34m\x1b[1mmodel\x1b[0m \
-\x1b[34m\x1b[1mid\x1b[0m
-Print the string representation of an instance based on the \
-class name and id\n"""
+        """show model id
+Print the string representation of an instance based \
+on the class name and id
+"""
 
         (cmd, id, ln) = Cmd.parseline(self, line)
 
@@ -161,9 +163,9 @@ class name and id\n"""
                         self.stdout.write("{}\n".format(str(instance)))
 
     def do_destroy(self, line):
-        """\x1b[32m\x1b[1mdestroy\x1b[0m \x1b[34m\x1b[1mmodel\x1b[0m \
-\x1b[34m\x1b[1mid\x1b[0m
-Delete a model instance based on the model name and id\n"""
+        """Usage: destroy <class> <id> or <class>.destroy(<id>)\n
+Delete a class instance based on the model name and id.
+"""
         (cmd, id, ln) = Cmd.parseline(self, line)
 
         if (not self.isMissingClass(cmd)):
@@ -175,49 +177,58 @@ Delete a model instance based on the model name and id\n"""
                     if (instance is not None):
 
                         new = storage.remove(key)
-                        storage.save(new)
+                        storage.save()
+
+    def do_count(self, line):
+        """Usage: count <class> or <class>.count()\n
+Retrieve the number of instances of a given class.
+"""
+        (cmd, id, ln) = Cmd.parseline(self, line)
+        count = 0
+        all = storage.all()
+
+        if (not self.isMissingClass(cmd)):
+            if (self.isValidClass(cmd)):
+                for cls in all.values():
+                    if cls.__class__.__name__ == cmd:
+                        count += 1
+
+        self.stdout.write("{}\n".format(str(count)))
 
     def do_all(self, line):
-        """\x1b[32m\x1b[1mall\x1b[0m\x1b[34m\x1b[1m \x1b[0m
-\x1b[32m\x1b[1mall\x1b[0m [\x1b[34m\x1b[1mmodel...\x1b[0m]
-Without arguments, prints all the string representation of all available models
-With arguments, prints the string representation of one or more models.\n"""
+        """Usage: all or all <class> or <class>.all()
+Display string representations of all instances of a given class. 
+If no class is specified, displays all instantiated objects.
+"""
         (cmd, args, ln) = Cmd.parseline(self, line)
-        all = storage.all()
+        all_obj = storage.all()
         models = args
-        objs = {}
+        objs = []
 
-        if isinstance(models, (str)):
+        if models is not None:
             models = set(line.split())
         else:
             models = set()
 
-        if len(models) != 0:
-            for model in models:
-                objs[model] = []
-                if not (self.isValidClass(model)):
-                    continue
-
-                objs[model] = [str(m) for m in all.values()
-                               if m.__class__.__name__ == model]
+        if not all([model in HBNBCommand.__classes for model in models]):
+            self.stdout.write("** class doesn't exist **\n")
         else:
-            for v in all.values():
-                m = v.__class__.__name__
-                if not (m in objs):
-                    objs[m] = []
-                else:
-                    objs[m].append(str(v))
+            if len(models) != 0:
+                for model in all_obj.values():
+                    cls = model.__class__.__name__
+                    if cls in models:
+                        objs.append(model)
+            else:
+                objs = all_obj.values()
 
-        for v in objs.values():
-            if len(v) != 0:
-                self.stdout.write("{}\n".format(str(v)))
+            self.stdout.write("{}\n".format(str([str(v) for v in objs])))
 
     def do_update(self, line):
-        """\x1b[32m\x1b[1mupdate\x1b[0m <\x1b[34m\x1b[1mclass name\x1b[0m> \
-<\x1b[34m\x1b[1mid\x1b[0m> <\x1b[34m\x1b[1mattribute name\x1b[0m> \
-"<\x1b[34m\x1b[1mattribute value\x1b[0m>"
+        """update
+Usage: update <class name> <id> <attribute name> "<attribute value>"
 Updates an instance based on the class name and id by adding or updating \
-attribute\n"""
+attribute.
+"""
         (cmd, args, ln) = Cmd.parseline(self, line)
 
         if (not self.isMissingClass(cmd)):
@@ -236,15 +247,23 @@ attribute\n"""
 
                         try:
                             attr_name, attr_value = attrib
-                            # i_type = instance.__getattribute__(attr_name)
-                            # print(id, attr_name, attr_value, i_type)
-                            instance.update(attr_name, attr_value)
+                            _type = str
+
+                            # attr_value = eval(attr_value)
+
+                            if isinstance(attr_value, (str)):
+                                attr_value = str(attr_value).replace("'", "")
+
+                            if attr_name in instance.__class__.__dict__.keys():
+                                _type = type(
+                                    instance.__getattribute__(attr_name))
+                            instance.update(attr_name, _type(attr_value))
+
                         except Exception as e:
                             print(e)
                             pass
-                    #     new = storage.remove(key)
-                    #     print(new)
-                    #     storage.save(new)
+
+                        storage.save()
 
 
 if __name__ == '__main__':
