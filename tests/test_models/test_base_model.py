@@ -10,6 +10,7 @@ import os
 import models
 import unittest
 from datetime import datetime
+from datetime import timedelta
 from time import sleep
 from models.base_model import BaseModel
 
@@ -86,7 +87,7 @@ class TestBaseModel_instantiation(unittest.TestCase):
         self.assertEqual(bm.updated_at, dt)
 
 
-class TestBaseModel_save(unittest.TestCase):
+class Test_save(unittest.TestCase):
     """Unittests for testing save method of the BaseModel class."""
 
     @classmethod
@@ -107,12 +108,13 @@ class TestBaseModel_save(unittest.TestCase):
         except IOError:
             pass
 
-    def test_one_save(self):
+    def testSaveOne(self):
         bm = BaseModel()
         sleep(0.05)
-        first_updated_at = bm.updated_at
+        last_updated_at = bm.updated_at
         bm.save()
-        self.assertLess(first_updated_at, bm.updated_at)
+        updated_at = bm.updated_at
+        self.assertTrue(updated_at > last_updated_at)
 
     def test_two_saves(self):
         bm = BaseModel()
@@ -138,7 +140,7 @@ class TestBaseModel_save(unittest.TestCase):
             self.assertIn(bmid, f.read())
 
 
-class TestBaseModel_to_dict(unittest.TestCase):
+class Test_to_dict(unittest.TestCase):
     """Unittests for testing to_dict method of the BaseModel class."""
 
     def test_to_dict_type(self):
