@@ -9,7 +9,8 @@ from models.review import Review
 from models.state import State
 import models
 import signal
-
+import re
+import sys
 storage = models.storage
 
 """Console module is the entry point of the command interpreter"""
@@ -55,7 +56,7 @@ class HBNBCommand (Cmd):
         if line == 'EOF':
             return 'quit'
 
-        return line
+        return self.parseLine(line)
 
     def isMissingClass(self, cls):
         """Check if class name is missing"""
@@ -195,6 +196,11 @@ Retrieve the number of instances of a given class.
 
         self.stdout.write("{}\n".format(str(count)))
 
+    def do_fake(self, line):
+        """Fake command"""
+        (cmd, args, ln) = Cmd.parseline(self, line)
+        print((cmd, args, ln))
+
     def do_all(self, line):
         """Usage: all or all <class> or <class>.all()
 Display string representations of all instances of a given class. 
@@ -264,6 +270,28 @@ attribute.
                             pass
 
                         storage.save()
+
+    def parseLine(self, line=""):
+        """Parse line"""
+        match = re.search("([A-Za-z]?=*\S*)\.([A-Za-z]?=*\S*)\((.*)\)", line)
+        names = self.get_names()
+        # commands = line.strip().split(".")
+
+        if match and len(match.groups()) >= 2:
+            # mtd, *args = mtd.split("(")
+            cls, mtd, *args = match.groups()
+            try:
+                args = [eval(v) for v in ",".join(args).split(
+                    ",") if isinstance(v, (str)) and len(v)]
+
+                if mtd in [x[3:] for x in names
+                           if x.startswith("do_")]:
+                    command = "{} {} {}".format(mtd, cls, " ".join(args))
+                    return command
+            except Exception as e:
+                print("\n[ERR! ({})]\n".format(e), file=sys.stderr)
+                pass
+        return line
 
 
 if __name__ == '__main__':
