@@ -281,7 +281,7 @@ attribute.
             # mtd, *args = mtd.split("(")
             cls, mtd, *args = match.groups()
             try:
-                args = [eval(v) for v in ",".join(args).split(
+                args = [v for v in ",".join(args).split(
                     ",") if isinstance(v, (str)) and len(v)]
 
                 if mtd in [x[3:] for x in names
