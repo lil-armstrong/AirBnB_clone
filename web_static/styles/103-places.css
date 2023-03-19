@@ -5,14 +5,18 @@
 	z-index: 0;
 }
 .places > .place {
-	width: 390px;
-	margin: 20px;
+	min-width: 390px;
+	margin-top: 20px;
+	margin-right: 20px;
 	padding: 20px;
 	border: 1px solid #ff5a5f;
 	display: flex;
-	flex-grow: 0;
+	flex: 1 45%;
 	position: relative;
 	flex-direction: column;
+}
+.places > .place:first-of-type {
+	margin-left: 0;
 }
 .places > .place > h2 {
 	font-size: 30px;

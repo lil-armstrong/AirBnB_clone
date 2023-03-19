@@ -6,7 +6,7 @@
 	border-radius: 4px;
 	position: relative;
 	display: flex;
-	flex-direction: row;
+	flex-flow: row wrap;
 	align-items: center;
 	z-index: 1;
 	margin-bottom: 20px;
@@ -22,9 +22,10 @@
 	/* float: right; */
 	/* margin-top: 10px; */
 	margin: 10px 0;
-	right: 10px;
+	margin-left: auto;
+	margin-right: 10px;
 
-	position: absolute;
+	/* position: absolute; */
 }
 
 .container .filters button:hover {
@@ -35,25 +36,35 @@
 	border-right: 1px solid #ddd;
 }
 .filters > div {
-	height: 100%;
-	width: 25%;
+	min-width: 35%;
+	width: auto;
 	display: inline-block;
 	margin: auto 0;
 	padding: 0 20px;
+	height: 100%;
 	display: inline-flex;
 	flex-direction: column;
 	justify-content: center;
 	position: relative;
 }
 
-.filters > div > .title {
+@media screen and (max-width: 500px) {
+	.filters > .popover {
+		flex-grow: 1;
+	}
+	.container .filters button {
+		width: 100%;
+		margin-right: 0;
+	}
+}
+.filters > .popover > .title {
 	font-weight: 600;
 	line-height: 24px;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
 }
-.filters > div > .subtitle {
+.filters > .popover > .subtitle {
 	font-size: 14px;
 	font-weight: 400;
 	opacity: 0.75;
@@ -63,7 +74,7 @@
 	overflow: hidden;
 }
 
-.filters > div > .popover {
+.filters > .popover > .popover-list {
 	position: absolute;
 	top: 100%;
 	background: #fafafa;
@@ -72,22 +83,30 @@
 	border: 1px solid #ddd;
 	display: none;
 	flex-direction: column;
-	row-gap: 10px;
-	padding: 10px;
 }
 
-.popover .list-item {
+.popover-list .list-item {
 	display: block;
-	padding: 4px 10px;
+	margin: 0;
+}
+.popover .list-item > span {
+	display: block;
+	width: 100%;
+	padding: 10px 20px;
+}
+.popover .list-item:hover > span {
+	background: #00000022;
 }
 .popover > .list-item .list-item {
 	margin-left: 10px;
 }
-.filters > div > .popover h2 {
+.filters > .popover > .popover-list h2 {
 	opacity: 0.5;
 	font-size: 16px;
 	margin-bottom: 10px;
+	padding: 10px 10px 0;
 }
-.filters > div:hover > .popover {
+.filters > .popover:hover > .popover-list,
+.filters > .popover:focus-within > .popover-list {
 	display: flex;
 }
