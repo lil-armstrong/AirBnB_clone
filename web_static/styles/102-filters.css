@@ -1,0 +1,104 @@
+.container .filters {
+	color: #fff;
+	height: 70px;
+	width: 100%;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	position: relative;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	z-index: 1;
+	margin-bottom: 20px;
+}
+.container .filters button {
+	font-size: 18px;
+	background: #ff5a5f;
+	color: #fff;
+	border: none;
+	height: 48px;
+	width: 20%;
+	border-radius: 4px;
+	/* float: right; */
+	/* margin-top: 10px; */
+	margin: 10px 0;
+	margin-left: auto;
+	margin-right: 10px;
+
+	/* position: absolute; */
+}
+
+.container .filters button:hover {
+	opacity: 0.9;
+}
+
+.filters > div:first-of-type {
+	border-right: 1px solid #ddd;
+}
+.filters > div {
+	min-width: 35%;
+	width: auto;
+	display: inline-block;
+	margin: auto 0;
+	padding: 0 20px;
+	height: 100%;
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: center;
+	position: relative;
+}
+
+@media screen and (max-width: 500px) {
+	.filters > div {
+		flex-grow: 1;
+	}
+	.container .filters button {
+		width: 100%;
+		margin-right: 0;
+	}
+}
+.filters > div > .title {
+	font-weight: 600;
+	line-height: 24px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.filters > div > .subtitle {
+	font-size: 14px;
+	font-weight: 400;
+	opacity: 0.75;
+	line-height: 16px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.filters > div > .popover {
+	position: absolute;
+	top: 100%;
+	background: #fafafa;
+	width: 100%;
+	left: 0;
+	border: 1px solid #ddd;
+	display: none;
+	flex-direction: column;
+	row-gap: 10px;
+	padding: 10px;
+}
+
+.popover .list-item {
+	display: block;
+	padding: 4px 10px;
+}
+.popover > .list-item .list-item {
+	margin-left: 10px;
+}
+.filters > div > .popover h2 {
+	opacity: 0.5;
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+.filters > div:hover > .popover {
+	display: flex;
+}

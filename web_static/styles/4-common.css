@@ -1,0 +1,33 @@
+@font-face {
+	font-family: "Circular";
+	src: url("../fonts/Circular/CircularStd-Medium.otf");
+	src: url("../fonts/Circular/CircularStd-Bold.otf");
+	src: url("../fonts/Circular/CircularStd-Book.otf");
+	src: url("../fonts/Circular/CircularStd-Light.otf");
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: inherit;
+}
+body,
+html {
+	color: #484848;
+	font-size: 14px;
+	font-family: "Circular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	max-height: 100vh;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.container {
+	max-width: 1000px;
+	margin: 30px 10px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}

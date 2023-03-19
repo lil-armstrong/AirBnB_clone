@@ -1,0 +1,10 @@
+header {
+	background-color: #fff;
+	min-height: 70px;
+	flex-shrink: 0;
+	width: 100%;
+	border-bottom: 1px #ccc solid;
+	background-image: url("../images/logo.png");
+	background-repeat: no-repeat;
+	background-position-x: 20px;
+}
